@@ -1,5 +1,7 @@
 package com.example.learningspringboot;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.social.github.api.GitHubIssue;
 import org.springframework.social.github.api.impl.GitHubTemplate;
 import org.springframework.stereotype.Service;
@@ -11,11 +13,15 @@ import java.util.List;
  * Created by Noel on 1/8/17.
  */
 @Service
-public class IssueManager {
+public class IssueManager implements InitializingBean {
 
-    String githubToken = "061b23e772ab8f534b87c2bb4019675f80bbc587";
-    String username = "noel-bk";
-    String[] repos = new String[]{"issue-manager"};
+    @Value("${github.token}")
+    String githubToken;
+    @Value("${username}")
+    String username;
+    @Value("${repos}")
+    String[] repos;
+
     GitHubTemplate gitHubTemplate = new GitHubTemplate(githubToken);
 
     public List<Issue> findOpenIssues() {
@@ -31,5 +37,10 @@ public class IssueManager {
             }
         }
         return openIssues;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        this.gitHubTemplate = new GitHubTemplate(githubToken);
     }
 }

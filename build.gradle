@@ -30,6 +30,6 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.social:spring-social-github:1.0.0.BUILD-SNAPSHOT')
-
+    compile('org.springframework.mobile:spring-mobile-device:1.1.4.RELEASE')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
